@@ -65,6 +65,11 @@ export default function App() {
     navigateTo('free-demo');
   };
 
+  const handleProceedWithProject = (project: Project) => {
+    setPreselectedService(`Selected Project: ${project.title} (${project.badge} / ${project.categoryLabel})`);
+    navigateTo('free-demo');
+  };
+
   return (
     <div className="min-h-screen bg-[#0A192F] text-slate-100 flex flex-col font-sans selection:bg-cyan-400 selection:text-slate-950">
       
@@ -77,6 +82,7 @@ export default function App() {
           <HomePage
             onNavigate={navigateTo}
             onSelectProject={(project) => setSelectedProject(project)}
+            onProceedWithProject={handleProceedWithProject}
           />
         )}
 
@@ -91,6 +97,7 @@ export default function App() {
           <PortfolioPage
             onNavigate={navigateTo}
             onSelectProject={(project) => setSelectedProject(project)}
+            onProceedWithProject={handleProceedWithProject}
           />
         )}
 

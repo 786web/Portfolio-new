@@ -2,7 +2,9 @@ import { Project } from '../types';
 import fashionImg from '../assets/images/project_ecommerce_fashion_1790595508077.jpg';
 import realestateImg from '../assets/images/project_realestate_portal_1790595524314.jpg';
 import restaurantImg from '../assets/images/project_restaurant_portal_1790595541600.jpg';
-import workspaceImg from '../assets/images/hero_agency_workspace_1790595490612.jpg';
+import smartwatchImg from '../assets/images/project_smartwatch_store_1790599756207.jpg';
+import b2bImg from '../assets/images/project_b2b_wholesale_portal_1790599774818.jpg';
+import dentalImg from '../assets/images/project_dental_clinic_portal_1790599790602.jpg';
 
 export const projectsData: Project[] = [
   {
@@ -93,7 +95,7 @@ export const projectsData: Project[] = [
     metric: '14,000+ Units',
     metricDescription: 'Smart fitness watches sold across North America & UAE',
     description: 'High-converting single-product launch page with 1-click upsells, local & international payment gateways, and TikTok viral creative ad testing.',
-    imageUrl: workspaceImg,
+    imageUrl: smartwatchImg,
     fallbackIcon: 'Watch',
     technologies: ['Shopify Plus', 'TikTok Spark Ads', 'Stripe & PayPal', 'ReConvert Upsell'],
     fullCaseStudy: {
@@ -119,7 +121,7 @@ export const projectsData: Project[] = [
     metric: '100% Automated',
     metricDescription: 'B2B quotation and credit application workflow',
     description: 'Tiered wholesale pricing, dynamic tax and freight calculation, and seamless enterprise Stripe & wire transfer integrations.',
-    imageUrl: restaurantImg,
+    imageUrl: b2bImg,
     fallbackIcon: 'Layers',
     technologies: ['WooCommerce', 'B2B Wholesale Suite', 'Stripe API', 'QuickBooks Sync'],
     fullCaseStudy: {
@@ -145,7 +147,7 @@ export const projectsData: Project[] = [
     metric: '85+ Monthly',
     metricDescription: 'New high-value patient appointments booked',
     description: 'Targeted dental clinic patient portal with calendar booking, Google Maps optimization, and geotargeted Facebook retargeting ads.',
-    imageUrl: realestateImg,
+    imageUrl: dentalImg,
     fallbackIcon: 'Activity',
     technologies: ['WordPress', 'Calendly / Acuity API', 'Meta Pixel', 'Google Ads'],
     fullCaseStudy: {

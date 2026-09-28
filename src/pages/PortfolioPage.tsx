@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { PageId, Project } from '../types';
 import { projectsData, projectCategories } from '../data/projectsData';
 import { ProjectImage } from '../components/ProjectImage';
-import { Search, ArrowRight, Sparkles, Filter, ExternalLink } from 'lucide-react';
+import { QuickProjectGallery } from '../components/QuickProjectGallery';
+import { Search, ArrowRight, Sparkles, Filter, ExternalLink, Eye, Zap } from 'lucide-react';
 
 interface PortfolioPageProps {
   onNavigate: (page: PageId) => void;
   onSelectProject: (project: Project) => void;
+  onProceedWithProject?: (project: Project) => void;
 }
 
-export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onNavigate, onSelectProject }) => {
+export const PortfolioPage: React.FC<PortfolioPageProps> = ({
+  onNavigate,
+  onSelectProject,
+  onProceedWithProject
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -31,7 +37,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onNavigate, onSele
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-300 text-xs font-mono font-bold tracking-wider mb-3">
             <Sparkles className="w-4 h-4 text-cyan-400" />
             <span>REAL RESULTS &bull; VERIFIED CONVERSIONS</span>
@@ -40,9 +46,17 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onNavigate, onSele
             Engineered For Conversion
           </h1>
           <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-            Every project below represents a custom platform designed for high velocity, flawless checkout, and laser-targeted customer acquisition funnels.
+            Inspect real production project pictures and case studies below. Click on any design to proceed quickly with your tailored free demo.
           </p>
         </div>
+
+        {/* Quick Visual Gallery & Proceed Dock */}
+        <QuickProjectGallery
+          projects={projectsData}
+          onNavigate={onNavigate}
+          onSelectProject={onSelectProject}
+          onProceedWithProject={onProceedWithProject}
+        />
 
         {/* Filter Bar & Search */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 pb-6 border-b border-slate-800">
@@ -144,11 +158,30 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onNavigate, onSele
                   </div>
                 </div>
 
-                <div className="px-6 pb-6 pt-2">
-                  <div className="flex items-center justify-between text-xs font-mono text-cyan-400 group-hover:text-white transition-colors">
-                    <span>View Case Study Breakdown</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
+                {/* Card Action Bar */}
+                <div className="px-6 pb-6 pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectProject(project);
+                    }}
+                    className="text-xs font-mono text-slate-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer transition-colors"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>Case Study</span>
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onProceedWithProject) onProceedWithProject(project);
+                      else onNavigate('free-demo');
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-cyan-400/15 hover:bg-cyan-400 text-cyan-300 hover:text-slate-950 font-bold text-xs font-mono flex items-center gap-1 cursor-pointer transition-all border border-cyan-400/40 shadow-[0_0_10px_rgba(0,245,255,0.2)]"
+                  >
+                    <span>Proceed Quick</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             ))}

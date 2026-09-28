@@ -4,6 +4,7 @@ import { projectsData } from '../data/projectsData';
 import { testimonialsData } from '../data/testimonialsData';
 import { HeroCanvas } from '../components/HeroCanvas';
 import { ProjectImage } from '../components/ProjectImage';
+import { QuickProjectGallery } from '../components/QuickProjectGallery';
 import {
   Zap,
   ArrowRight,
@@ -19,15 +20,17 @@ import {
   TrendingUp,
   MessageCircle,
   Mail,
-  Send
+  Send,
+  Eye
 } from 'lucide-react';
 
 interface HomePageProps {
   onNavigate: (page: PageId) => void;
   onSelectProject: (project: Project) => void;
+  onProceedWithProject?: (project: Project) => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject, onProceedWithProject }) => {
   // Dynamic Typewriter state
   const phrases = [
     "WordPress & Shopify Specialist",
@@ -415,6 +418,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
       <section className="py-20 bg-navy-950/60 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
+          {/* Quick Proceed Project Visual Gallery */}
+          <QuickProjectGallery
+            projects={projectsData}
+            onNavigate={onNavigate}
+            onSelectProject={onSelectProject}
+            onProceedWithProject={onProceedWithProject}
+          />
+
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
               <h2 className="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">Selected Work</h2>
@@ -437,44 +448,67 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
               <div
                 key={project.id}
                 onClick={() => onSelectProject(project)}
-                className="glass-card rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-1.5"
+                className="glass-card rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
               >
-                <div className="h-52 bg-navy-800 relative overflow-hidden">
-                  <ProjectImage
-                    src={project.imageUrl}
-                    alt={project.title}
-                    fallbackIcon={project.fallbackIcon}
-                    className="w-full h-full group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent z-10 pointer-events-none" />
-                  <div className="absolute top-4 left-4 z-20 px-2.5 py-1 rounded bg-navy-950/80 border border-cyan-400/40 text-[10px] font-mono text-cyan-300">
-                    {project.badge}
+                <div>
+                  <div className="h-52 bg-navy-800 relative overflow-hidden">
+                    <ProjectImage
+                      src={project.imageUrl}
+                      alt={project.title}
+                      fallbackIcon={project.fallbackIcon}
+                      className="w-full h-full group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent z-10 pointer-events-none" />
+                    <div className="absolute top-4 left-4 z-20 px-2.5 py-1 rounded bg-navy-950/80 border border-cyan-400/40 text-[10px] font-mono text-cyan-300">
+                      {project.badge}
+                    </div>
+                    <div className="absolute top-4 right-4 z-20 px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">
+                      {project.metric}
+                    </div>
                   </div>
-                  <div className="absolute top-4 right-4 z-20 px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">
-                    {project.metric}
+
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold font-display text-white group-hover:text-cyan-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-slate-400 text-xs sm:text-sm mt-2 mb-4 leading-relaxed line-clamp-2">
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800">
+                      {project.technologies.slice(0, 3).map((tech, idx) => (
+                        <span key={idx} className="text-[11px] font-mono text-slate-300 bg-navy-900 px-2 py-0.5 rounded">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <div className="p-6">
-                  <h3 className="text-xl font-bold font-display text-white group-hover:text-cyan-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-slate-400 text-xs sm:text-sm mt-2 mb-4 leading-relaxed line-clamp-2">
-                    {project.description}
-                  </p>
+                {/* Quick Proceed & Case Study Footer Actions */}
+                <div className="px-6 pb-6 pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectProject(project);
+                    }}
+                    className="text-xs font-mono text-slate-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer transition-colors"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>Case Study</span>
+                  </button>
 
-                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800">
-                    {project.technologies.slice(0, 3).map((tech, idx) => (
-                      <span key={idx} className="text-[11px] font-mono text-slate-300 bg-navy-900 px-2 py-0.5 rounded">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between text-xs font-mono text-cyan-400">
-                    <span>Read full case study</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onProceedWithProject) onProceedWithProject(project);
+                      else onNavigate('free-demo');
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-cyan-400/15 hover:bg-cyan-400 text-cyan-300 hover:text-slate-950 font-bold text-xs font-mono flex items-center gap-1 cursor-pointer transition-all border border-cyan-400/40 shadow-[0_0_10px_rgba(0,245,255,0.2)]"
+                  >
+                    <span>Proceed Quick</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             ))}

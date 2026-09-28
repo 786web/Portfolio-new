@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageId } from '../types';
 import {
   Sparkles,
@@ -9,7 +9,8 @@ import {
   Mail,
   Send,
   ArrowRight,
-  HelpCircle
+  HelpCircle,
+  Zap
 } from 'lucide-react';
 
 interface FreeDemoPageProps {
@@ -28,6 +29,15 @@ export const FreeDemoPage: React.FC<FreeDemoPageProps> = ({ onNavigate, initialS
     goals: initialServiceScope || 'Build high-converting website and scale sales',
     budget: '$600 - $1,500'
   });
+
+  useEffect(() => {
+    if (initialServiceScope) {
+      setFormData((prev) => ({
+        ...prev,
+        goals: initialServiceScope
+      }));
+    }
+  }, [initialServiceScope]);
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -94,45 +104,90 @@ export const FreeDemoPage: React.FC<FreeDemoPageProps> = ({ onNavigate, initialS
         </div>
 
         {/* Main Form Box */}
-        <div className="glass-card rounded-3xl p-8 sm:p-12 border-2 border-cyan-400/40 relative overflow-hidden bg-gradient-to-b from-navy-900 to-navy-950 mb-16 shadow-2xl">
-          
+        <div
+          className={`glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden mb-16 shadow-2xl transition-all duration-700 ${
+            submitted
+              ? 'border-2 border-emerald-400/60 bg-gradient-to-b from-[#061A2B] via-[#0A192F] to-[#040D1A] shadow-[0_0_60px_rgba(16,185,129,0.22)]'
+              : 'border-2 border-cyan-400/40 bg-gradient-to-b from-navy-900 to-navy-950'
+          }`}
+        >
           {submitted ? (
-            <div className="text-center py-10 space-y-6">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-400 flex items-center justify-center mx-auto animate-bounce">
-                <CheckCircle2 className="w-8 h-8" />
+            <div className="text-center py-6 sm:py-8 space-y-6 relative z-10 animate-fade-up">
+              {/* Gentle ambient glow orbs behind success icon */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-emerald-400/15 rounded-full blur-[90px] pointer-events-none animate-gentle-glow" />
+              <div className="absolute -top-6 right-1/4 w-48 h-48 bg-cyan-400/10 rounded-full blur-[70px] pointer-events-none" />
+
+              {/* Animated SVG Checkmark with gentle glowing ring */}
+              <div className="relative w-20 h-20 mx-auto flex items-center justify-center">
+                {/* Gentle ripple ring */}
+                <div
+                  className="absolute inset-0 rounded-full border border-emerald-400/40 animate-ping opacity-40 pointer-events-none"
+                  style={{ animationDuration: '3s' }}
+                />
+                {/* Backing glass halo */}
+                <div className="absolute inset-1 rounded-full bg-gradient-to-tr from-emerald-500/25 via-teal-400/15 to-cyan-400/20 border border-emerald-400/50 backdrop-blur-md shadow-[0_0_35px_rgba(16,185,129,0.4)]" />
+                
+                {/* Stroke animated SVG icon */}
+                <svg className="w-12 h-12 relative z-10" viewBox="0 0 52 52" fill="none">
+                  <circle
+                    cx="26"
+                    cy="26"
+                    r="23"
+                    stroke="#10B981"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    className="animate-circle-draw"
+                  />
+                  <path
+                    d="M15 27L22.5 34.5L37 19"
+                    stroke="#00F5FF"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="animate-check-draw"
+                  />
+                </svg>
               </div>
 
               <div>
-                <h3 className="text-3xl font-display font-black text-white">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold tracking-wider mb-3 border border-emerald-500/30">
+                  <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>REQUEST RECEIVED &bull; 48-HOUR SLA</span>
+                </div>
+                <h3 className="text-3xl sm:text-4xl font-display font-black text-white">
                   Demo Request Confirmed!
                 </h3>
-                <p className="text-slate-300 text-sm max-w-lg mx-auto mt-2">
-                  Thank you, <strong className="text-white">{formData.name}</strong>! Abdul Moeen will review your requirements and begin drafting your free prototype within 48 hours.
+                <p className="text-slate-300 text-sm max-w-lg mx-auto mt-2 leading-relaxed">
+                  Thank you, <strong className="text-white">{formData.name}</strong>! Lead Engineer Abdul Moeen has received your specifications and will begin crafting your free prototype within 48 hours.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-navy-950/80 border border-slate-800 max-w-md mx-auto text-left text-xs font-mono space-y-2">
+              <div className="p-5 rounded-2xl bg-navy-950/90 border border-emerald-500/30 max-w-md mx-auto text-left text-xs font-mono space-y-2 shadow-inner">
                 <div className="flex justify-between text-slate-400">
                   <span>Contact:</span>
-                  <span className="text-white">{formData.email} / {formData.phone}</span>
+                  <span className="text-white font-medium">{formData.email} &bull; {formData.phone}</span>
                 </div>
                 <div className="flex justify-between text-slate-400">
-                  <span>Industry:</span>
-                  <span className="text-cyan-300">{formData.industry}</span>
+                  <span>Business / Industry:</span>
+                  <span className="text-cyan-300 font-medium">{formData.businessName || formData.industry}</span>
                 </div>
                 <div className="flex justify-between text-slate-400">
+                  <span>Target Budget:</span>
+                  <span className="text-emerald-400 font-medium">{formData.budget}</span>
+                </div>
+                <div className="pt-2 border-t border-slate-800 flex justify-between text-slate-400">
                   <span>Scope:</span>
-                  <span className="text-emerald-400">{formData.budget}</span>
+                  <span className="text-slate-200 truncate max-w-[200px]">{formData.goals}</span>
                 </div>
               </div>
 
-              {/* Instant WhatsApp Push */}
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+              {/* Instant WhatsApp & Email Push */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href={`https://wa.me/923417497785?text=${whatsappMessage}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase font-mono tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.5)]"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase font-mono tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(16,185,129,0.5)] transition-all"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Forward Details to WhatsApp (+92 341 7497785)</span>
@@ -140,11 +195,21 @@ export const FreeDemoPage: React.FC<FreeDemoPageProps> = ({ onNavigate, initialS
 
                 <a
                   href={`mailto:abdulmoeen524@gmail.com?subject=Free Demo Request - ${formData.name}&body=${whatsappMessage}`}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-cyan-300 border border-cyan-400/30 text-xs font-mono font-bold flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-cyan-300 border border-cyan-400/30 text-xs font-mono font-bold flex items-center justify-center gap-2 transition-colors"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Email abdulmoeen524@gmail.com</span>
                 </a>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="text-xs font-mono text-slate-400 hover:text-cyan-300 transition-colors underline cursor-pointer"
+                >
+                  Edit requirements or submit another proposal
+                </button>
               </div>
             </div>
           ) : (
@@ -157,6 +222,23 @@ export const FreeDemoPage: React.FC<FreeDemoPageProps> = ({ onNavigate, initialS
                   Fill in your details below. You can also reach Lead Engineer Abdul Moeen directly at <a href="mailto:abdulmoeen524@gmail.com" className="text-cyan-300 underline font-mono">abdulmoeen524@gmail.com</a>.
                 </p>
               </div>
+
+              {formData.goals.includes('Selected Project:') && (
+                <div className="mb-6 p-4 rounded-2xl bg-cyan-400/10 border border-cyan-400/40 flex items-center justify-between gap-3 shadow-[0_0_15px_rgba(0,245,255,0.15)]">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 rounded-xl bg-cyan-400/20 text-cyan-300">
+                      <Zap className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono uppercase text-cyan-400 tracking-wider block font-bold">Fast Proceed Activated</span>
+                      <span className="text-xs sm:text-sm font-semibold text-white">{formData.goals}</span>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-mono font-bold shrink-0">
+                    Prototype Pre-Linked
+                  </span>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
