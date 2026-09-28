@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageId, Project } from '../types';
 import { projectsData, projectCategories } from '../data/projectsData';
+import { ProjectImage } from '../components/ProjectImage';
 import { Search, ArrowRight, Sparkles, Filter, ExternalLink } from 'lucide-react';
 
 interface PortfolioPageProps {
@@ -102,13 +103,13 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onNavigate, onSele
               >
                 <div>
                   <div className="h-56 bg-navy-900 relative overflow-hidden">
-                    <img
+                    <ProjectImage
                       src={project.imageUrl}
                       alt={project.title}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
+                      fallbackIcon={project.fallbackIcon}
+                      className="w-full h-full group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent z-10 pointer-events-none" />
                     
                     <div className="absolute top-4 left-4 z-20 px-2.5 py-1 rounded bg-navy-950/85 border border-cyan-400/40 text-[10px] font-mono text-cyan-300 font-semibold">
                       {project.badge}

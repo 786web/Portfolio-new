@@ -30,12 +30,19 @@ export const HeroCanvas: React.FC = () => {
 
     const handleResize = () => {
       if (!canvas || !canvas.parentElement) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = canvas.parentElement.offsetHeight || 600;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      width = canvas.width = Math.max(rect.width || window.innerWidth, 320);
+      height = canvas.height = Math.max(rect.height || 600, 400);
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined' && canvas.parentElement) {
+      resizeObserver = new ResizeObserver(() => handleResize());
+      resizeObserver.observe(canvas.parentElement);
+    }
 
     const particleCount = Math.min(Math.floor(window.innerWidth / 24), 50);
     particles = [];
@@ -101,6 +108,7 @@ export const HeroCanvas: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (resizeObserver) resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

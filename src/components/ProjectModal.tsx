@@ -1,5 +1,6 @@
 import React from 'react';
 import { Project, PageId } from '../types';
+import { ProjectImage } from './ProjectImage';
 import { X, CheckCircle2, Calendar, Layers, ArrowRight, ExternalLink } from 'lucide-react';
 
 interface ProjectModalProps {
@@ -19,13 +20,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
       >
         {/* Header Banner Image */}
         <div className="h-64 sm:h-72 w-full relative overflow-hidden bg-navy-900">
-          <img
+          <ProjectImage
             src={project.imageUrl}
             alt={project.title}
-            className="w-full h-full object-cover object-center"
-            referrerPolicy="no-referrer"
+            fallbackIcon={project.fallbackIcon}
+            className="w-full h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/60 to-transparent pointer-events-none" />
 
           {/* Close button */}
           <button

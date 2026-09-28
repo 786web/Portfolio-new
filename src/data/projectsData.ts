@@ -1,4 +1,8 @@
 import { Project } from '../types';
+import fashionImg from '../assets/images/project_ecommerce_fashion_1790595508077.jpg';
+import realestateImg from '../assets/images/project_realestate_portal_1790595524314.jpg';
+import restaurantImg from '../assets/images/project_restaurant_portal_1790595541600.jpg';
+import workspaceImg from '../assets/images/hero_agency_workspace_1790595490612.jpg';
 
 export const projectsData: Project[] = [
   {
@@ -11,7 +15,7 @@ export const projectsData: Project[] = [
     metric: '+340% ROAS',
     metricDescription: 'Return on ad spend across Meta & TikTok campaigns',
     description: 'Bespoke fashion boutique storefront with instant AJAX checkout, localized multi-currency conversion, and zero-friction mobile UX.',
-    imageUrl: '/src/assets/images/project_ecommerce_fashion_1790595508077.jpg',
+    imageUrl: fashionImg,
     fallbackIcon: 'ShoppingBag',
     technologies: ['Shopify Liquid', 'Custom JS Engine', 'Meta Pixel & CAPI', 'Stripe Gateway'],
     fullCaseStudy: {
@@ -37,7 +41,7 @@ export const projectsData: Project[] = [
     metric: '$420K Deals',
     metricDescription: 'Closed transaction volume within 60 days of launch',
     description: 'High-ticket real estate acquisition portal with interactive virtual tour triggers, automated WhatsApp routing, and targeted Google Search Ads.',
-    imageUrl: '/src/assets/images/project_realestate_portal_1790595524314.jpg',
+    imageUrl: realestateImg,
     fallbackIcon: 'Home',
     technologies: ['WordPress (Custom ACF)', 'Google Search & PMax', 'WhatsApp API Routing', 'HubSpot CRM Sync'],
     fullCaseStudy: {
@@ -63,7 +67,7 @@ export const projectsData: Project[] = [
     metric: '99 Speed Score',
     metricDescription: 'Google Core Web Vitals mobile benchmark',
     description: 'Real-time table reservation engine, dynamic interactive culinary menu ordering, and zero-latency local SEO integration.',
-    imageUrl: '/src/assets/images/project_restaurant_portal_1790595541600.jpg',
+    imageUrl: restaurantImg,
     fallbackIcon: 'Utensils',
     technologies: ['WordPress', 'OpenTable API', 'Tailwind CSS', 'Local Service Ads'],
     fullCaseStudy: {
@@ -89,7 +93,7 @@ export const projectsData: Project[] = [
     metric: '14,000+ Units',
     metricDescription: 'Smart fitness watches sold across North America & UAE',
     description: 'High-converting single-product launch page with 1-click upsells, local & international payment gateways, and TikTok viral creative ad testing.',
-    imageUrl: '/src/assets/images/hero_agency_workspace_1790595490612.jpg',
+    imageUrl: workspaceImg,
     fallbackIcon: 'Watch',
     technologies: ['Shopify Plus', 'TikTok Spark Ads', 'Stripe & PayPal', 'ReConvert Upsell'],
     fullCaseStudy: {
@@ -115,7 +119,7 @@ export const projectsData: Project[] = [
     metric: '100% Automated',
     metricDescription: 'B2B quotation and credit application workflow',
     description: 'Tiered wholesale pricing, dynamic tax and freight calculation, and seamless enterprise Stripe & wire transfer integrations.',
-    imageUrl: '/src/assets/images/project_restaurant_portal_1790595541600.jpg',
+    imageUrl: restaurantImg,
     fallbackIcon: 'Layers',
     technologies: ['WooCommerce', 'B2B Wholesale Suite', 'Stripe API', 'QuickBooks Sync'],
     fullCaseStudy: {
@@ -141,7 +145,7 @@ export const projectsData: Project[] = [
     metric: '85+ Monthly',
     metricDescription: 'New high-value patient appointments booked',
     description: 'Targeted dental clinic patient portal with calendar booking, Google Maps optimization, and geotargeted Facebook retargeting ads.',
-    imageUrl: '/src/assets/images/project_realestate_portal_1790595524314.jpg',
+    imageUrl: realestateImg,
     fallbackIcon: 'Activity',
     technologies: ['WordPress', 'Calendly / Acuity API', 'Meta Pixel', 'Google Ads'],
     fullCaseStudy: {

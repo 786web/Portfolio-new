@@ -3,6 +3,7 @@ import { PageId, Project } from '../types';
 import { projectsData } from '../data/projectsData';
 import { testimonialsData } from '../data/testimonialsData';
 import { HeroCanvas } from '../components/HeroCanvas';
+import { ProjectImage } from '../components/ProjectImage';
 import {
   Zap,
   ArrowRight,
@@ -439,13 +440,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 className="glass-card rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-1.5"
               >
                 <div className="h-52 bg-navy-800 relative overflow-hidden">
-                  <img
+                  <ProjectImage
                     src={project.imageUrl}
                     alt={project.title}
-                    className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
-                    referrerPolicy="no-referrer"
+                    fallbackIcon={project.fallbackIcon}
+                    className="w-full h-full group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent z-10 pointer-events-none" />
                   <div className="absolute top-4 left-4 z-20 px-2.5 py-1 rounded bg-navy-950/80 border border-cyan-400/40 text-[10px] font-mono text-cyan-300">
                     {project.badge}
                   </div>

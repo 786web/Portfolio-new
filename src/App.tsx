@@ -18,12 +18,14 @@ import { ContactPage } from './pages/ContactPage';
 
 export default function App() {
   const getInitialPage = (): PageId => {
-    const hash = window.location.hash.replace('#', '').toLowerCase();
-    if (hash === 'services') return 'services';
-    if (hash === 'portfolio') return 'portfolio';
-    if (hash === 'about' || hash === 'why-me') return 'about';
-    if (hash === 'free-demo' || hash === 'special-offer') return 'free-demo';
-    if (hash === 'contact') return 'contact';
+    const hash = window.location.hash.replace('#', '').toLowerCase().trim();
+    const path = window.location.pathname.replace(/^\//, '').toLowerCase().trim();
+    const route = hash || path;
+    if (route.startsWith('services')) return 'services';
+    if (route.startsWith('portfolio')) return 'portfolio';
+    if (route.startsWith('about') || route.startsWith('why-me')) return 'about';
+    if (route.startsWith('free-demo') || route.startsWith('special-offer')) return 'free-demo';
+    if (route.startsWith('contact')) return 'contact';
     return 'home';
   };
 
@@ -48,7 +50,13 @@ export default function App() {
 
   const navigateTo = (page: PageId) => {
     setCurrentPage(page);
-    window.location.hash = page === 'home' ? '' : page;
+    if (page === 'home') {
+      if (window.location.hash) {
+        window.history.pushState(null, '', window.location.pathname);
+      }
+    } else {
+      window.location.hash = page;
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
