@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --navy-950: #040d1a;
+    --navy-900: #0a192f;
+    --navy-800: #112240;
+    --navy-700: #1f355b;
+    --navy-600: #233554;
+    --cyan-400: #00f5ff;
+    --cyan-300: #4df8ff;
+    --cyan-500: #00cbd6;
+  }
+
+  body {
+    background-color: #0a192f;
+    color: #f1f5f9;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Glassmorphism & Neon Glow Styles */
+.glass-card {
+  background: rgba(17, 34, 64, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 245, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 245, 255, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(0, 245, 255, 0.15);
+}
+
+.glass-nav {
+  background: rgba(10, 25, 47, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+}
+
+.neon-border-glow {
+  box-shadow: 0 0 25px rgba(0, 245, 255, 0.3), inset 0 0 15px rgba(0, 245, 255, 0.1);
+}
+
+.neon-btn-glow {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neon-btn-glow:hover {
+  box-shadow: 0 0 25px rgba(0, 245, 255, 0.55);
+}
+
+/* 3D T Logo Effect */
+.cube-container {
+  perspective: 1000px;
+}
+
+.isometric-t {
+  transform: rotateX(18deg) rotateY(-22deg) rotateZ(2deg);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isometric-t:hover {
+  transform: rotateX(8deg) rotateY(-8deg) rotateZ(0deg) scale(1.05);
+}
+
+/* Smooth Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a192f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f355b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f5ff;
+}
+
+/* Custom Keyframe Animations */
+@keyframes floatAnimation {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes floatSlowAnimation {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(14px); }
+}
+
+@keyframes glowPulseAnimation {
+  0%, 100% { opacity: 0.35; filter: blur(28px); }
+  50% { opacity: 0.75; filter: blur(40px); }
+}
+
+@keyframes marqueeAnimation {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-float {
+  animation: floatAnimation 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlowAnimation 9s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulseAnimation 4s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marqueeAnimation 28s linear infinite;
+}
